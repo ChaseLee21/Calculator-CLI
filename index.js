@@ -8,14 +8,7 @@ program
     .version('1.0.0');
 
 program
-    .command('greet <name>')
-    .description('Greet a person by name')
-    .action((name) => {
-        console.log(`Hello, ${name}!`);
-    });
-
-program
-    .command('choose')
+    .command('math')
     .description('Choose an option')
     .action(async () => {
         const operation = await select({
@@ -40,6 +33,16 @@ program
                     name: "Division",
                     value: "/",
                     description: "Divide 2 numbers"
+                },
+                {
+                    name: "Power Of",
+                    value: "^",
+                    description: "Num 1 to the power of num 2"
+                },
+                {
+                    name: "Square Root Of",
+                    value: "sqrt",
+                    description: "Num 1 to the square root of num 2"
                 },
             ]
         });
@@ -68,6 +71,12 @@ program
                 break;
             case '/':
                 result = Number(num1) / Number(num2);
+                break;
+            case '^':
+                result = Math.pow(Number(num1), Number(num2));
+                break;
+            case 'sqrt':
+                result = Math.sqrt(Number(num1), Number(num2));
                 break;
             default:
                 console.log('Invalid numbers');
