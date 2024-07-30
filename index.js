@@ -1,5 +1,5 @@
 const { Command } = require('commander');
-const inquirer = require('inquirer');
+const { input, select } = require('@inquirer/prompts')
 const program = new Command();
 
 program
@@ -18,16 +18,33 @@ program
     .command('choose')
     .description('Choose an option')
     .action(async () => {
-    const answers = await inquirer.prompt([
-        {
-        type: 'list',
-        name: 'option',
-        message: 'Please choose an option:',
-        choices: ['Option 1', 'Option 2', 'Option 3'],
-        },
-    ]);
+        const operation = await select({
+            message: "Select the operation you want to perform",
+            choices: [
+                {
+                    name: "Addition",
+                    value: "+",
+                    description: "Add 2 numbers"
+                },
+                {
+                    name: "Subtraction",
+                    value: "-",
+                    description: "Subtract 2 numbers"
+                },
+                {
+                    name: "Multiplication",
+                    value: "*",
+                    description: "Multiply 2 numbers"
+                },
+                {
+                    name: "Division",
+                    value: "/",
+                    description: "Divide 2 numbers"
+                },
+            ]
+        });
 
-console.log(`You selected: ${answers.option}`);
-});
+        console.log(`You selected operation: ${operation}`);
+    });
 
 program.parse(process.argv);
