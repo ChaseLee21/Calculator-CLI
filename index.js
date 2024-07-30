@@ -1,5 +1,5 @@
 const { Command } = require('commander');
-const { input, select } = require('@inquirer/prompts')
+const { select, number } = require('@inquirer/prompts')
 const program = new Command();
 
 program
@@ -44,7 +44,39 @@ program
             ]
         });
 
+        const num1 = await number({
+            message: "Input the first number of the operation",
+            default: 0,
+            required: true
+        })
+        const num2 = await number({
+            message: "Input the first number of the operation",
+            default: 0,
+            required: true
+        })
+
+        let result;
+        switch (operation) {
+            case '+':
+                result = Number(num1) + Number(num2);
+                break;
+            case '-':
+                result = Number(num1) - Number(num2);
+                break;
+            case '*':
+                result = Number(num1) * Number(num2);
+                break;
+            case '/':
+                result = Number(num1) / Number(num2);
+                break;
+            default:
+                console.log('Invalid numbers');
+                return;
+        }
+
         console.log(`You selected operation: ${operation}`);
+        console.log(`The result is: ${result}`);
+
     });
 
 program.parse(process.argv);
